@@ -1,0 +1,48 @@
+# Python / Django
+__pycache__/
+*.py[cod]
+*.egg-info/
+*.sqlite3
+
+# Virtualenv / Poetry
+.env
+.venv/
+env/
+venv/
+.venv*/
+
+# Django artifacts
+/staticfiles/
+/media/
+*.log
+
+# Migrations (optional to ignore if project is new)
+# **Keep migrations** if this is a real app you’ll deploy/use
+# app_name/migrations/__pycache__/
+
+# Node / frontend (if any)
+node_modules/
+dist/
+build/
+
+# OS/editor
+.DS_Store
+*.swp
+
+# Docker
+docker-data/
+*.pid
+
+# Coverage / tests
+.coverage
+htmlcov/
+
+# IDE
+.vscode/
+.idea/
+
+# Secrets templates (commit the example, ignore the real)
+.env.local
+.env.dev
+.env.prod
+.env.sample

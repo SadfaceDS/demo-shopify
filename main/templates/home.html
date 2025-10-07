@@ -1,0 +1,442 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>The Web Guru Mug — Shopify Demo</title>
+  <meta name="description" content="Start your day like a creator. The Web Guru Mug: durable, modern, and full of character. Buy via Shopify." />
+
+  <!-- Color System: Deep Blue + Off-White + Accent Orange -->
+  <style>
+    :root{
+      --bg: #edf3f8;           /* off-white */
+      --ink: #0a2740;          /* deep blue */
+      --ink-soft: #143d5f;     /* lighter deep blue for depth */
+      --accent: #ff7a18;       /* confident orange accent */
+      --accent-ink: #6a3006;   /* accessible pressed state */
+      --card: #ffffff;
+      --muted: #5b7088;
+      --ring: rgba(10,39,64,0.15);
+      --radius: 16px;
+      --shadow: 0 10px 30px rgba(10,39,64,0.08);
+      --maxw: 1120px;
+    }
+
+    /* Base Reset-ish */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body{
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Inter, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji","Segoe UI Emoji", "Segoe UI Symbol";
+      color: var(--ink);
+      background: linear-gradient(180deg, #f4f7fb 0%, var(--bg) 100%);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+    :focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+    .container{ width: min(100% - 2rem, var(--maxw)); margin-inline: auto; }
+
+    /* Header */
+    header{
+      position: sticky; top: 0; z-index: 40;
+      background: rgba(255,255,255,0.8);
+      backdrop-filter: saturate(160%) blur(8px);
+      border-bottom: 1px solid #e6ebf1;
+    }
+    .nav{
+      display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+      padding: .75rem 0;
+    }
+    .brand{
+      display: flex; align-items: center; gap: .6rem;
+      font-weight: 800; letter-spacing: .2px;
+    }
+    .brand .owl{
+      width: 36px; height: 36px; border-radius: 10px; background: var(--ink);
+      display: grid; place-items: center; color: #fff; font-size: 20px; box-shadow: var(--shadow);
+    }
+    .nav-links{
+      display: none; gap: 1rem; align-items: center;
+    }
+    .nav-links a{ padding: .5rem .75rem; border-radius: 10px; color: var(--muted); }
+    .nav-links a:hover{ background: #f0f5fa; color: var(--ink); }
+    .menu-btn{ appearance: none; border: 1px solid #d9e3ee; background: #fff; padding: .5rem .75rem; border-radius: 10px; }
+    @media (min-width: 940px){
+      .nav-links{ display: flex; }
+      .menu-btn{ display: none; }
+    }
+
+    /* Hero */
+    .hero{
+      position: relative;
+      padding: clamp(2.5rem, 5vw, 4rem) 0 2rem;
+    }
+    .hero-grid{
+      display: grid; gap: 1.5rem;
+      grid-template-columns: 1fr;
+      align-items: center;
+    }
+    @media (min-width: 940px){
+      .hero-grid{ grid-template-columns: 1.15fr .85fr; gap: 3rem; }
+    }
+    .eyebrow{
+      display: inline-flex; align-items: center; gap: .5rem;
+      padding: .25rem .6rem; border-radius: 999px;
+      background: #e9f2fb; color: var(--ink-soft); font-weight: 600; font-size: .9rem;
+      border: 1px solid #d6e4f2;
+    }
+    .hero h1{
+      font-size: clamp(2rem, 4.2vw, 3.2rem);
+      line-height: 1.1; margin: .6rem 0 .5rem;
+      letter-spacing: -.6px;
+    }
+    .hero p.lede{
+      font-size: clamp(1.05rem, 1.4vw, 1.25rem);
+      color: var(--muted);
+      max-width: 60ch;
+    }
+    .hero-cta{ display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1rem; }
+    .btn{
+      display: inline-flex; align-items: center; justify-content: center; gap: .5rem;
+      padding: .85rem 1.1rem; border-radius: 12px; font-weight: 700; border: 1px solid transparent;
+      transition: transform .08s ease, box-shadow .25s ease, background .2s ease, color .2s ease;
+      will-change: transform;
+    }
+    .btn-primary{
+      background: var(--accent); color: #fff; box-shadow: 0 8px 18px rgba(255,122,24,.25);
+    }
+    .btn-primary:hover{ transform: translateY(-1px); }
+    .btn-primary:active{ background: #ff6b00; transform: translateY(0); }
+    .btn-ghost{ background: #ffffff; color: var(--ink); border-color: #e2e8f0; }
+    .btn-ghost:hover{ background: #f7fbff; }
+
+    /* Product Card */
+    .product{
+      margin-top: 1rem;
+      display: grid; gap: 1rem;
+      grid-template-columns: 1fr;
+    }
+    @media (min-width: 940px){
+      .product{ grid-template-columns: 1fr 1fr; gap: 2rem; }
+    }
+    .card{
+      background: var(--card); border: 1px solid #e6ebf1; border-radius: var(--radius); box-shadow: var(--shadow);
+      padding: clamp(1rem, 2.5vw, 1.5rem);
+    }
+    .product-stats{
+      display: grid; grid-template-columns: repeat(3,1fr); gap: .75rem; margin-top: 1rem;
+    }
+    .pill{
+      border: 1px dashed #d9e3ee; border-radius: 12px; padding: .5rem .75rem; text-align: center; font-weight: 600; color: var(--ink-soft); background: #f8fbff;
+    }
+    .specs{
+      display: grid; gap: .5rem; margin-top: 1rem; color: var(--muted);
+    }
+    .specs li{ list-style: none; padding-left: 1.4rem; position: relative; }
+    .specs li::before{
+      content: "•"; position: absolute; left: 0; color: var(--accent); font-weight: 900;
+    }
+    .product-visual{
+      display: grid; gap: 1rem; align-content: start;
+    }
+    .photo{
+      aspect-ratio: 4/3; width: 100%;
+      border-radius: var(--radius); border: 1px solid #e6ebf1; background: #f6f9fc;
+      overflow: hidden;
+    }
+    .photo img{ width: 100%; height: 100%; object-fit: cover; }
+
+    /* Feature Grid */
+    .features{
+      padding: clamp(2.5rem, 6vw, 4rem) 0;
+    }
+    .feat-grid{
+      display: grid; gap: 1rem;
+      grid-template-columns: 1fr;
+    }
+    @media (min-width: 760px){
+      .feat-grid{ grid-template-columns: repeat(3,1fr); }
+    }
+    .feature{
+      background: var(--card); border: 1px solid #e6ebf1; border-radius: var(--radius); padding: 1.25rem; box-shadow: var(--shadow);
+    }
+    .feature h3{ margin: .25rem 0 .35rem; }
+    .kicker{ color: var(--muted); font-size: .98rem; }
+
+    /* Social Proof */
+    .testimonials{
+      padding: clamp(2.5rem, 6vw, 4rem) 0;
+    }
+    .quote-grid{
+      display: grid; gap: 1rem;
+      grid-template-columns: 1fr;
+    }
+    @media (min-width: 940px){
+      .quote-grid{ grid-template-columns: repeat(3,1fr); }
+    }
+    blockquote{
+      margin: 0; padding: 1.25rem; background: #fff; border: 1px solid #e6ebf1; border-radius: var(--radius); box-shadow: var(--shadow);
+      color: var(--ink-soft);
+    }
+    blockquote footer{ margin-top: .75rem; font-weight: 700; color: var(--ink); }
+
+    /* Final CTA */
+    .cta{
+      padding: clamp(2.5rem, 6vw, 4rem) 0;
+    }
+    .cta .panel{
+      background: linear-gradient(180deg, #0a2740 0%, #0e3354 100%);
+      border-radius: calc(var(--radius) + 4px);
+      padding: clamp(1.2rem, 3vw, 1.75rem);
+      color: #eaf3ff;
+      border: 1px solid #0b345a;
+      box-shadow: 0 12px 40px rgba(10,39,64,0.35);
+    }
+    .cta h2{ margin: 0 0 .35rem; color: #fff; letter-spacing: -.3px; }
+    .cta p{ color: #c9dbef; margin: 0 0 1rem; }
+    .cta .btn-primary{ font-size: 1.05rem; padding: 1rem 1.25rem; }
+
+    /* Footer */
+    footer{
+      padding: 2rem 0; color: var(--muted);
+    }
+    .footgrid{
+      display: grid; gap: 1rem; grid-template-columns: 1fr;
+    }
+    @media (min-width: 760px){
+      .footgrid{ grid-template-columns: 2fr 1fr 1fr; }
+    }
+    .small{ font-size: .9rem; color: var(--muted); }
+
+    /* Utility */
+    .spacer{ height: 1rem; }
+    .hide{ display: none !important; }
+
+    /* Motion preferences */
+    @media (prefers-reduced-motion: reduce){
+      .btn{ transition: none; }
+    }
+  </style>
+</head>
+<body>
+{% load static %}
+  <a class="hide" href="#main">Skip to content</a>
+
+  <!-- ===================== Header ===================== -->
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <div class="owl" aria-hidden="true">🦉</div>
+        <span>The Web Guru</span>
+      </div>
+      <nav class="nav-links" id="nav-links">
+        <a href="#product">Product</a>
+        <a href="#features">Why it’s great</a>
+        <a href="#testimonials">Proof</a>
+        <a href="#buy">Buy</a>
+      </nav>
+      <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="nav-links">Menu</button>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- ===================== Hero ===================== -->
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <span class="eyebrow">Limited run • Ships fast</span>
+          <h1>Fuel your flow with <span style="color:var(--accent)">The Web Guru Mug</span></h1>
+          <p class="lede">
+            Your daily goal deserves gear with grit. This ceramic workhorse pairs calm, wise-owl energy with a clean, modern profile so every sip says: <em>back to building</em>.
+          </p>
+          <div class="hero-cta">
+            <a class="btn btn-primary" href="https://thewebgurudemo.myshopify.com/checkouts/cn/hWN3qCZtMM02no1wLtdgmpFK/en-us?preview_theme_id=154774536450">Buy from Shopify</a>
+            <a class="btn btn-ghost" href="#product">See details</a>
+          </div>
+          <div class="product-stats" aria-hidden="true">
+            <div class="pill">Dishwasher-safe</div>
+            <div class="pill">11oz comfort grip</div>
+            <div class="pill">Logo that pops</div>
+          </div>
+        </div>
+
+        <!-- Product visual cluster -->
+        <div class="product-visual">
+          <div class="photo card" aria-label="Lifestyle preview image of a clean desk with laptop and coffee mug">
+            <img src="{% static 'img/shopifyMug.png' %}" alt="Minimal desk setup with a laptop and soft morning light" />
+          </div>
+          <div class="photo" aria-label="Close-up surface texture image">
+            <img src="{% static 'img/shopifyMug2.png' %}" alt="Softly lit background texture that complements the mug’s clean white ceramic" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== Product ===================== -->
+    <section id="product" class="container">
+      <div class="product">
+        <!-- LEFT: Description -->
+        <article class="card" aria-labelledby="mug-title">
+          <h2 id="mug-title">🦉 The Web Guru Mug</h2>
+          <p class="kicker"><strong>Creator energy, on tap.</strong> Built for deep work mornings and midnight polish passes.</p>
+
+          <p>
+            Start your day like a true creator with <strong>The Web Guru Mug</strong>, a modern classic in crisp white ceramic. Front and center sits the iconic owl: calm, wise, and quietly determined. The orange-and-blue palette leaps off the clean background, adding a spark of confidence to your workspace without shouting for attention.
+          </p>
+          <p>
+            The shape is purposeful-sleek walls for steady heat, a comfort-grip handle that fits the hand like it was meant to be there, and a balanced base that won’t tip even when your desk looks like a sprint board. Whether it’s your morning brew or a late-night refuel, every sip is a tiny ritual of mastery: <em>reset, refocus, ship</em>.
+          </p>
+          <p>
+            Durable enough for daily use and photogenic enough for your next desk shot, this mug isn’t just a container, it’s a cue. A reminder that progress is made in small, steady sips, and the build gets better one commit at a time.
+          </p>
+
+          <ul class="specs" aria-label="Key specifications">
+            <li>Premium white ceramic with gloss finish</li>
+            <li>11oz capacity; dishwasher & microwave safe</li>
+            <li>High-contrast owl mark in TWG orange & deep blue</li>
+            <li>Comfort-grip handle for long sessions</li>
+            <li>Clean silhouette that pairs with any desk aesthetic</li>
+          </ul>
+
+          <div class="spacer"></div>
+
+          <!-- Stats / assurances -->
+          <div class="product-stats" role="list" aria-label="Assurances">
+            <div class="pill" role="listitem">30-day peace-of-mind</div>
+            <div class="pill" role="listitem">Secure Shopify checkout</div>
+            <div class="pill" role="listitem">Ships in 2–5 business days</div>
+          </div>
+        </article>
+
+        <!-- RIGHT: Your product image slot + secondary visuals -->
+        <aside class="product-visual">
+          <!-- Empty slot for your real product image -->
+          <div class="photo card">
+            <!-- Add your real image src here -->
+            <img id="product-main" src="{% static 'img/shopifyMug3.png' %}" alt="The Web Guru Mug product photo" />
+          </div>
+
+          <!-- Secondary lifestyle image -->
+          <div class="photo">
+            <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=1600&auto=format&fit=crop" alt="Warm, inviting coffee scene to suggest the mug in daily use" />
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ===================== Features ===================== -->
+    <section id="features" class="features">
+      <div class="container">
+        <h2>Why creators love it</h2>
+        <div class="feat-grid" role="list">
+          <div class="feature" role="listitem">
+            <h3>Built for real desks</h3>
+            <p class="kicker">Practical shape, balanced weight, stays put when the ideas don’t.</p>
+          </div>
+          <div class="feature" role="listitem">
+            <h3>Signal, not noise</h3>
+            <p class="kicker">Clean design with a pop of orange. Sharp, not shouty.</p>
+          </div>
+          <div class="feature" role="listitem">
+            <h3>Ritualized focus</h3>
+            <p class="kicker">Every sip anchors the habit: open editor, push work, ship better.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== Testimonials ===================== -->
+    <section id="testimonials" class="testimonials">
+      <div class="container">
+        <h2>Trusted by builders</h2>
+        <div class="quote-grid">
+          <blockquote>
+            “It sounds silly, but the mug became my start-button. Coffee in, headphones on, deploy.”
+            <footer>— Sam • Frontend Dev</footer>
+          </blockquote>
+          <blockquote>
+            “The logo pops on camera. Great for desk shots without fighting the rest of my setup.”
+            <footer>— Priya • Product Designer</footer>
+          </blockquote>
+          <blockquote>
+            “Dishwasher-safe and still glossy after months. It’s the reliable piece of my stack.”
+            <footer>— Mateo • Indie Hacker</footer>
+          </blockquote>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== Final CTA ===================== -->
+    <section id="buy" class="cta">
+      <div class="container">
+        <div class="panel">
+          <h2>Ready to ship. Ready to build.</h2>
+          <p>Add The Web Guru Mug to your kit and turn caffeine into commits.</p>
+          <a id="shopifyBtn" class="btn btn-primary" href="https://thewebgurudemo.myshopify.com/checkouts/cn/hWN3qCZtMM02no1wLtdgmpFK/en-us?preview_theme_id=154774536450" rel="noopener" target="_blank" aria-label="Buy from Shopify">
+            Buy from Shopify
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===================== Footer ===================== -->
+  <footer>
+    <div class="container footgrid">
+      <div>
+        <div class="brand"><div class="owl">🦉</div><span>The Web Guru</span></div>
+        <p class="small">Clean builds. Sharp tools. Better habits.</p>
+      </div>
+      <div>
+        <strong>Explore</strong>
+        <p class="small"><a href="#product">Product</a> · <a href="#features">Features</a> · <a href="#testimonials">Proof</a></p>
+      </div>
+      <div>
+        <strong>Info</strong>
+        <p class="small">© <span id="year"></span> The Web Guru. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===================== Internal JS ===================== -->
+  <script>
+    // Mobile nav
+    const menuBtn = document.getElementById('menuBtn');
+    const navLinks = document.getElementById('nav-links');
+    menuBtn?.addEventListener('click', () => {
+      const expanded = menuBtn.getAttribute('aria-expanded') === 'true';
+      menuBtn.setAttribute('aria-expanded', String(!expanded));
+      navLinks.classList.toggle('hide');
+    });
+
+    // Set year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Configure the Shopify link in ONE place:
+    // Paste your Shopify product page URL below (or set via data attribute/server render).
+    const SHOPIFY_PRODUCT_URL = "https://your-shop-name.myshopify.com/products/the-web-guru-mug";
+    const shopifyBtn = document.getElementById('shopifyBtn');
+    if (shopifyBtn && SHOPIFY_PRODUCT_URL) {
+      shopifyBtn.href = SHOPIFY_PRODUCT_URL;
+    }
+
+    // Optional: smooth scroll for same-page anchors
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', (e) => {
+        const id = a.getAttribute('href');
+        if (id.length > 1) {
+          const el = document.querySelector(id);
+          if (el) {
+            e.preventDefault();
+            el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }
+      });
+    });
+  </script>
+</body>
+</html>
